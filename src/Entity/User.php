@@ -7,6 +7,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -14,6 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
  */
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -22,65 +24,58 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="integer")
      */
     private int $id;
-
     /**
      * @ORM\Column (name="username", type="string", length=128)
      */
     private string $username;
-
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private ?string $email;
-
     /**
      * @ORM\Column(name="active", type="boolean")
      */
     private bool $active;
-
     /**
      * @ORM\Column (name="created_at", type="datetime", nullable="true")
      */
     private ?DateTime $createdAt = null;
-
     /**
      * @ORM\Column(type="json")
      */
     private array $roles = [];
-
     /**
      * @var string The hashed password
      * @ORM\Column(name="password", type="string", length=256)
      */
     private string $password;
-
     /**
      * @ORM\OneToMany(targetEntity=StockHistoric::class, mappedBy="userId")
      */
     private ArrayCollection $stockHistorics;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
     public function __construct()
     {
         $this->stockHistorics = new ArrayCollection();
     }
-
     public function getId(): ?int
     {
         return $this->id;
     }
-
     public function getEmail(): ?string
     {
         return $this->email;
     }
-
     public function setEmail(string $email): self
     {
         $this->email = $email;
 
         return $this;
     }
-
     /**
      * A visual identifier that represents this user.
      *
@@ -90,7 +85,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return (string) $this->email;
     }
-
     /**
      * @deprecated since Symfony 5.3, use getUserIdentifier instead
      */
@@ -98,7 +92,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return (string) $this->email;
     }
-
     /**
      * @see UserInterface
      */
@@ -110,14 +103,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return array_unique($roles);
     }
-
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
         return $this;
     }
-
     /**
      * @see PasswordAuthenticatedUserInterface
      */
@@ -125,14 +116,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->password;
     }
-
     public function setPassword(string $password): self
     {
         $this->password = $password;
 
         return $this;
     }
-
     /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
@@ -143,7 +132,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return null;
     }
-
     /**
      * @see UserInterface
      */
@@ -152,7 +140,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
-
     /**
      * @return Collection<int, StockHistoric>
      */
@@ -160,7 +147,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->stockHistorics;
     }
-
     public function addStockHistoric(StockHistoric $stockHistoric): self
     {
         if (!$this->stockHistorics->contains($stockHistoric)) {
@@ -170,7 +156,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
     public function removeStockHistoric(StockHistoric $stockHistoric): self
     {
         if ($this->stockHistorics->removeElement($stockHistoric)) {
@@ -179,6 +164,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $stockHistoric->setUserId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
