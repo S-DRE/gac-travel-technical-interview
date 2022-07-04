@@ -6,3 +6,6 @@ error:
 iniciar:
   asecas: iniciar
   sesion: iniciar sesión
+
+mensaje:
+  bienvenida: ¡Bienvenido!
