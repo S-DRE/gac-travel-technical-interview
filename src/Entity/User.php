@@ -33,7 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private ?string $email;
     /**
-     * @ORM\Column(name="active", type="boolean")
+     * @ORM\Column(type="boolean")
      */
     private bool $active;
     /**
