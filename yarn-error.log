@@ -1,0 +1,43 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js install
+
+PATH: 
+  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Yarn\bin\;C:\Users\Andres\scoop\shims;C:\Users\Andres\AppData\Local\Microsoft\WindowsApps;;C:\Users\Andres\AppData\Local\Programs\oh-my-posh\bin;C:\Program Files\JetBrains\PhpStorm 2022.1.2\bin;;C:\Users\Andres\AppData\Roaming\Composer\vendor\bin;C:\Users\Andres\AppData\Roaming\npm;C:\Users\Andres\AppData\Local\Yarn\bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  16.15.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: 17156:error:1408F10B:SSL routines:ssl3_get_record:wrong version number:c:\ws\deps\openssl\openssl\ssl\record\ssl3_record.c:308:
+
+npm manifest: 
+  {
+      "devDependencies": {
+          "@hotwired/stimulus": "^3.0.0",
+          "@symfony/stimulus-bridge": "^3.0.0",
+          "@symfony/webpack-encore": "^1.7.0",
+          "core-js": "^3.0.0",
+          "regenerator-runtime": "^0.13.2",
+          "webpack-notifier": "^1.6.0"
+      },
+      "license": "UNLICENSED",
+      "private": true,
+      "scripts": {
+          "dev-server": "encore dev-server",
+          "dev": "encore dev",
+          "watch": "encore dev --watch",
+          "build": "encore production --progress"
+      }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

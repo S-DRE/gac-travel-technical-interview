@@ -23,3 +23,19 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface:
+        arguments:
+            $lifetime: 100
+        class: SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelper
+
+    SymfonyCasts\Bundle\VerifyEmail\Util\VerifyEmailQueryUtility:
+        class: SymfonyCasts\Bundle\VerifyEmail\Util\VerifyEmailQueryUtility
+
+    SymfonyCasts\Bundle\VerifyEmail\Generator\VerifyEmailTokenGenerator:
+        arguments:
+            $key: 'test'
+        class: SymfonyCasts\Bundle\VerifyEmail\Generator\VerifyEmailTokenGenerator
+
+    App\Security\EmailVerifier:
+        class: App\Security\EmailVerifier
