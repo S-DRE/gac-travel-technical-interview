@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`users`")
  */
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -28,34 +28,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column (name="username", type="string", length=128)
      */
     private string $username;
-    /*
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
 
-    private ?string $email;
-    */
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private bool $active;
     /**
      * @ORM\Column (name="created_at", type="datetime", nullable="true")
      */
     private ?DateTime $createdAt = null;
+
     /**
      * @ORM\Column(type="json")
      */
     private array $roles = [];
+
     /**
      * @var string The hashed password
      * @ORM\Column(name="password", type="string", length=256)
      */
     private string $password;
+
     /**
      * @ORM\OneToMany(targetEntity=StockHistoric::class, mappedBy="userId")
      */
-    private ArrayCollection $stockHistorics;
-    
+    private Collection $stockHistorics;
+
     private bool $isVerified = false;
 
     public function __construct()
@@ -96,6 +90,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return (string) $this->username;
     }
+
+    /**
+     * @param string $username
+     */
+    public function setUsername(string $username): void
+    {
+        $this->username = $username;
+    }
+
     /**
      * @see UserInterface
      */
@@ -113,6 +116,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getCreatedAt(): ?DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime|null $createdAt
+     */
+    public function setCreatedAt(?DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
     /**
      * @see PasswordAuthenticatedUserInterface
      */

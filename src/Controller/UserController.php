@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -47,7 +48,13 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->doctrine->getManager();
+            $user->setCreatedAt(new DateTime());
             $this->manejarHasheoContrasenas($user);
+
+            $em->persist($user);
+            $em->flush();
+
 
             $userRepository->add($user);
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
@@ -55,7 +62,7 @@ class UserController extends AbstractController
 
         return $this->renderForm('user/new.html.twig', [
             'user' => $user,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -78,7 +85,11 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->doctrine->getManager();
             $this->manejarHasheoContrasenas($user);
+
+            $em->persist($user);
+            $em->flush();
 
             $userRepository->add($user);
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
@@ -86,7 +97,7 @@ class UserController extends AbstractController
 
         return $this->renderForm('user/edit.html.twig', [
             'user' => $user,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -108,11 +119,8 @@ class UserController extends AbstractController
         $em = $this->doctrine->getManager();
 
         $contrasenaSinHashear = $user->getPassword();
-        $contrasenaHasheada = $this->passwordHasher->hash($contrasenaSinHashear);
+        $contrasenaHasheada = $this->passwordHasher->hashPassword($user, $contrasenaSinHashear);
 
         $user->setPassword($contrasenaHasheada);
-
-        $em->persist($user);
-        $em->flush();
     }
 }

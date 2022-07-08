@@ -5,7 +5,10 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,9 +18,10 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('email')
-            ->add('active')
-            ->add('createdAt')
+            // ->add('active')
+            /* ->add('created_at', DateTimeType::class, [
+                'widget' => 'single_text'
+            ]) */
             ->add('roles', ChoiceType::class, [
                 'required' => true,
                 'multiple' => false,
@@ -28,8 +32,8 @@ class UserType extends AbstractType
                     // 'User' => 'ROLE_USER'
                 ]
             ])
-            ->add('password')
-            ->add('isVerified')
+            ->add('password', PasswordType::class)
+            ->add('isVerified', CheckboxType::class)
         ;
 
         $builder->get('roles')->addModelTransformer(new CallbackTransformer(
