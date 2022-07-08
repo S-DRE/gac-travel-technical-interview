@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="`user`")
+ * @ORM\Table(name="`users`")
  */
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -28,10 +28,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column (name="username", type="string", length=128)
      */
     private string $username;
+    /*
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     */
+
     private ?string $email;
+    */
     /**
      * @ORM\Column(type="boolean")
      */
@@ -53,11 +55,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity=StockHistoric::class, mappedBy="userId")
      */
     private ArrayCollection $stockHistorics;
+    
+    private bool $isVerified = false;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isVerified = false;
     public function __construct()
     {
         $this->stockHistorics = new ArrayCollection();
@@ -66,6 +66,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->id;
     }
+
+    /*
     public function getEmail(): ?string
     {
         return $this->email;
@@ -76,6 +78,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    */
+
     /**
      * A visual identifier that represents this user.
      *
@@ -83,14 +87,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string) $this->username;
     }
     /**
      * @deprecated since Symfony 5.3, use getUserIdentifier instead
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string) $this->username;
     }
     /**
      * @see UserInterface
@@ -98,8 +102,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // guarantee every user at least has ROLE_USER // <-- Overriden, solo existe ROLE_ADMIN según el Readme.MD
+        $roles[] = 'ROLE_ADMIN';
 
         return array_unique($roles);
     }
