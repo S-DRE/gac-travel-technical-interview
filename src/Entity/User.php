@@ -16,6 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="`users`")
  */
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
+#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -50,6 +51,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private Collection $stockHistorics;
 
+    /**
+     * @ORM\Column(name="active", type="boolean")
+     */
     private bool $isVerified = false;
 
     public function __construct()
