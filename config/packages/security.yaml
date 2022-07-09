@@ -41,3 +41,5 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: '^/categories', roles: ROLE_ADMIN }
+        - { path: '^/products', roles: ROLE_ADMIN }

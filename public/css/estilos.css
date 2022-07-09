@@ -1,0 +1,15 @@
+.formularioDiv>form>div div {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-bottom: 2rem;
+}
+
+.formularioDiv>form>div div input{
+    border-radius: 0.2rem;
+}
+
+div#user > :last-child {
+    display: flex;
+    flex-direction: row !important;
+}

@@ -49,8 +49,10 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->doctrine->getManager();
-            $user->setCreatedAt(new DateTime());
             $this->manejarHasheoContrasenas($user);
+            $user->setCreatedAt(new DateTime());
+            $user->setRoles(['ROLE_ADMIN']);
+
 
             $em->persist($user);
             $em->flush();
