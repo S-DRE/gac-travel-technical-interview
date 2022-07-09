@@ -22,13 +22,13 @@ class StockHistoric
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="stockHistorics")
      * @ORM\JoinColumn(nullable=false)
      */
-    private User $userId;
+    private User $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Products::class, inversedBy="stockHistorics")
      * @ORM\JoinColumn(nullable=false)
      */
-    private Products $productId;
+    private Products $product;
 
     /**
      * @ORM\Column(type="datetime")
@@ -59,33 +59,33 @@ class StockHistoric
     /**
      * @return User
      */
-    public function getUserId(): User
+    public function getUser(): User
     {
-        return $this->userId;
+        return $this->user;
     }
 
     /**
-     * @param User $userId
+     * @param User $user
      */
-    public function setUserId(User $userId): void
+    public function setUser(User $user): void
     {
-        $this->userId = $userId;
+        $this->user = $user;
     }
 
     /**
      * @return Products
      */
-    public function getProductId(): Products
+    public function getProduct(): Products
     {
-        return $this->productId;
+        return $this->product;
     }
 
     /**
-     * @param Products $productId
+     * @param Products $product
      */
-    public function setProductId(Products $productId): void
+    public function setProduct(Products $product): void
     {
-        $this->productId = $productId;
+        $this->product = $product;
     }
 
     /**

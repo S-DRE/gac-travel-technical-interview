@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Products;
+use App\Entity\StockHistoric;
+use App\Entity\User;
 use App\Form\ProductsType;
 use App\Form\StockType;
 use App\Repository\ProductsRepository;
@@ -84,6 +86,10 @@ class ProductsController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws OptimisticLockException
+     * @throws ORMException
+     */
     #[Route('/{id}', name: 'app_products_delete', methods: ['POST'])]
     public function delete(Request $request, Products $product, ProductsRepository $productsRepository): Response
     {
@@ -98,6 +104,10 @@ class ProductsController extends AbstractController
     public function stockManagement(Request $request, Products $producto): Response
     {
         $em = $this->doctrine->getManager();
+
+        $user = $this->getUser();
+        $user = $em->getRepository(User::class)->find($user->getId());
+
         $form = $this->createForm(StockType::class, $producto);
         $form->handleRequest($request);
 
@@ -109,6 +119,15 @@ class ProductsController extends AbstractController
 
             $producto->setStock($cantidadFinal);
             $em->persist($producto);
+
+            // Añadimos histórico
+            $stockHistoric = new StockHistoric();
+            $stockHistoric->setUser($user);
+            $stockHistoric->setProduct($producto);
+            $stockHistoric->setStock($cantidadCambio); // <-- "La cantidad de productos añadidos o consumidos"
+            $stockHistoric->setCreatedAt(new DateTime());
+            $em->persist($stockHistoric);
+
             $em->flush();
 
 
@@ -118,6 +137,20 @@ class ProductsController extends AbstractController
         return $this->renderForm('products/stockManagement.html.twig', [
             'producto' => $producto,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/{producto}/stockHistoric', name: 'app_products_stock_historic', methods: ['GET', 'POST'])]
+    public function stockHistoric(Request $request, Products $producto): Response
+    {
+        $em = $this->doctrine->getManager();
+        $user = $em->getRepository(User::class)->find($this->getUser()->getId());
+
+        $stockHistorics = $em->getRepository(StockHistoric::class)->findBy(['user' => $user, 'product' => $producto]);
+
+        return $this->render('products/stockHistoric.html.twig', [
+            'producto' => $producto,
+            'stockHistorics' => $stockHistorics
         ]);
     }
 }

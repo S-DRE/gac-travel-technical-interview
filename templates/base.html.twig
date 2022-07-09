@@ -21,11 +21,8 @@
     {% endblock %}
 </head>
 <body>
-<div id="navSup" class="d-flex flex-row justify-content-between">
     {% if not app.user %}
-        <div id="navSupTabs" class="ml-2 mt-2 mb-3 d-flex flex-row justify-content-start">
-            <a class="btn btn-outline-purple mr-2" href="{{ path('app_user_index') }}">Usuarios</a>
-        </div>
+    <div id="navSup" class="d-flex flex-row justify-content-end">
         <div class="loginSignupDiv d-flex flex-row">
             <div id="loginDiv" class="p-2">
                 <a class="h4 btn btn-outline-primary" href="{{ path('app_login') }}">Iniciar sesión</a>
@@ -34,10 +31,12 @@
                 <a class="h4 btn btn-outline-dark" href="{{ path('app_register') }}">Registrarse</a>
             </div>
         </div>
+    </div>
     {% else %}
+    <div id="navSup" class="d-flex flex-row justify-content-between">
         <div id="navSupTabs" class="ml-2 mt-2 mb-3 d-flex flex-row justify-content-start">
-            <a class="btn btn-outline-purple mr-2" href="{{ path('app_user_index') }}">Usuarios</a>
             {% if 'ROLE_ADMIN' in app.user.roles %}
+                <a class="btn btn-outline-purple mr-2" href="{{ path('app_user_index') }}">Usuarios</a>
                 <a class="btn btn-outline-info mr-2" href="{{ path('app_categories_index') }}">Categorías</a>
                 <a class="btn btn-outline-orange" href="{{ path('app_products_index') }}">Productos</a>
             {% endif %}
@@ -47,8 +46,8 @@
                         class="text-primary">{{ app.user.userIdentifier }}</label></label>
             <a class="h4 btn btn-outline-primary ml-2" href="{{ path('app_logout') }}">Cerrar sesión</a>
         </div>
+    </div>
     {% endif %}
-</div>
 <div class="m-5">
     {% block body %}
     {% endblock %}

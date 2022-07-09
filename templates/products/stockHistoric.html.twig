@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Histórico de stock{% endblock %}
+
+{% block body %}
+
+
+    <h3 class = "text-primary font-weight-bold">Histórico de alteración de stock del producto {{ producto.name }} por el usuario {{ app.user.userIdentifier }}</h3>
+
+    <table class="table">
+        <thead>
+        <tr class = "text-center">
+            <th>Producto</th>
+            <th>Usuario</th>
+            <th>Cambio en el stock</th>
+            <th>Fecha de creación</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for stockHistoric in stockHistorics %}
+            <tr class = "text-center">
+                <td class = "font-weight-bold bg-dark text-light">{{ stockHistoric.product.name }}</td>
+                <td>{{ stockHistoric.user.userIdentifier }}</td>
+                <td>{{ stockHistoric.stock }}</td>
+                <td>{{ stockHistoric.createdAt ? stockHistoric.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">No se encontraron históricos de alteración de stock</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

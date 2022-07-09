@@ -1,3 +1,5 @@
+/* Estilos para el proyecto creados por Andrés */
+
 .formularioDiv>form>div div {
     display: flex;
     flex-direction: column;
@@ -5,7 +7,18 @@
     margin-bottom: 2rem;
 }
 
+.formularioDiv2>form>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-bottom: 2rem;
+}
+
 .formularioDiv>form>div div input{
+    border-radius: 0.2rem;
+}
+
+.formularioDiv2>form>div input{
     border-radius: 0.2rem;
 }
 

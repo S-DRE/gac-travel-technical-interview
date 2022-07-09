@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\GacTravelAuthenticator;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,6 +33,9 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            $user->setCreatedAt(new DateTime());
+            $user->setRoles(['ROLE_ADMIN']);
+            $user->setIsVerified(true);
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email

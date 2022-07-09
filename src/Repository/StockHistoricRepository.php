@@ -23,10 +23,7 @@ class StockHistoricRepository extends ServiceEntityRepository
         parent::__construct($registry, StockHistoric::class);
     }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
+
     public function add(StockHistoric $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
@@ -35,10 +32,7 @@ class StockHistoricRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
+
     public function remove(StockHistoric $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
