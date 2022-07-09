@@ -27,6 +27,7 @@
                 <td>
                     <a class = "btn btn-primary" href="{{ path('app_products_show', {'id': product.id}) }}">Ver</a>
                     <a class = "btn btn-primary" href="{{ path('app_products_edit', {'id': product.id}) }}">Editar</a>
+                    <a class = "btn btn-orange"  href="{{ path('app_products_stock_management', {'producto': product.id})}}">Manejo de stock</a>
                 </td>
             </tr>
         {% else %}

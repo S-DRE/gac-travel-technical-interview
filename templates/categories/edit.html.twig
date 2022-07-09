@@ -3,11 +3,12 @@
 {% block title %}Edit Categories{% endblock %}
 
 {% block body %}
-    <h1>Edit Categories</h1>
+    <h1>Editar categoría</h1>
 
-    {{ include('categories/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_categories_index') }}">back to list</a>
-
-    {{ include('categories/_delete_form.html.twig') }}
+    <div class = "card shadow col-lg-6">
+        <div class = "card-body d-flex flex-column justify-content-start">
+        {{ include('categories/_form.html.twig', {'button_label': 'Actualizar'}) }}
+        {{ include('categories/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

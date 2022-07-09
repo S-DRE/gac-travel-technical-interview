@@ -1,9 +1,9 @@
 <div class="formularioDiv col-lg-6">
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <div class="d-flex flex-column col-lg-4 p-0">
-        <button class="btn btn-success">{{ button_label|default('Guardar') }}</button>
-        <a class="btn btn-dark mt-1" href="{{ path('app_products_index') }}"><i class="fa fa-arrow-left"></i> Volver
+    <div class="d-flex flex-row col-lg-12 p-0">
+        <button class="btn btn-success mr-1">{{ button_label|default('Guardar') }}</button>
+        <a class="btn btn-dark" href="{{ path('app_products_index') }}"><i class="fa fa-arrow-left"></i> Volver
             al
             índice</a>
     </div>

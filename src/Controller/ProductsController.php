@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Products;
 use App\Form\ProductsType;
+use App\Form\StockType;
 use App\Repository\ProductsRepository;
 use DateTime;
 use Doctrine\ORM\OptimisticLockException;
@@ -91,5 +92,32 @@ class ProductsController extends AbstractController
         }
 
         return $this->redirectToRoute('app_products_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{producto}/stockManagement', name: 'app_products_stock_management', methods: ['GET', 'POST'])]
+    public function stockManagement(Request $request, Products $producto): Response
+    {
+        $em = $this->doctrine->getManager();
+        $form = $this->createForm(StockType::class, $producto);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $cantidadCambio = $form['cantidad']->getData();
+            $cantidadFinal = $producto->getStock() + $cantidadCambio;
+            if ($cantidadFinal < 0)
+                $cantidadFinal = 0;
+
+            $producto->setStock($cantidadFinal);
+            $em->persist($producto);
+            $em->flush();
+
+
+            return $this->redirectToRoute('app_products_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('products/stockManagement.html.twig', [
+            'producto' => $producto,
+            'form' => $form,
+        ]);
     }
 }
