@@ -7,7 +7,7 @@
 
     <table class="table">
         <thead>
-            <tr>
+            <tr class = "text-center">
                 <th>Id</th>
                 <th>Nombre</th>
                 <th>Fecha de creación</th>
@@ -16,8 +16,8 @@
         </thead>
         <tbody>
         {% for category in categories %}
-            <tr>
-                <td>{{ category.id }}</td>
+            <tr class = "text-center">
+                <td class = "font-weight-bold bg-dark text-light">{{ category.id }}</td>
                 <td>{{ category.name }}</td>
                 <td>{{ category.createdAt ? category.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>

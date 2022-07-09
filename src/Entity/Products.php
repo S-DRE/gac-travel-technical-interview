@@ -37,14 +37,13 @@ class Products
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Categories", inversedBy="products")
-     * @ORM\Column(type="integer", nullable=false)
      */
-    private Categories $category_id;
+    private Categories $category;
 
     /**
      * @ORM\OneToMany(targetEntity=StockHistoric::class, mappedBy="productId")
      */
-    private ArrayCollection $stockHistorics;
+    private Collection $stockHistorics;
 
     public function __construct()
     {
@@ -95,17 +94,17 @@ class Products
     /**
      * @return Categories|null
      */
-    public function getCategoryId(): ?Categories
+    public function getCategory(): ?Categories
     {
-        return $this->category_id;
+        return $this->category;
     }
 
     /**
-     * @param Categories|null $category_id
+     * @param Categories|null $category
      */
-    public function setCategoryId(?Categories $category_id): void
+    public function setCategory(?Categories $category): void
     {
-        $this->category_id = $category_id;
+        $this->category = $category;
     }
 
     /**
