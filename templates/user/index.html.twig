@@ -34,12 +34,12 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="9">no records found</td>
+                <td colspan="9">No se encontraron usuarios</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a class = "btn btn-success" href="{{ path('app_user_new') }}">Crear nuevo usuario</a>
+    <a class = "btn btn-purple" href="{{ path('app_user_new') }}">Crear nuevo usuario</a>
 
 {% endblock %}

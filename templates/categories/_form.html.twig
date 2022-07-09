@@ -1,4 +1,11 @@
-{{ form_start(form) }}
+<div class="formularioDiv col-lg-6">
+    {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+    <div class="d-flex flex-column col-lg-4 p-0">
+        <button type = "submit" class="btn btn-success">{{ button_label|default('Guardar') }}</button>
+        <a class="btn btn-dark mt-1" href="{{ path('app_categories_index') }}"><i class="fa fa-arrow-left"></i> Volver
+            al
+            índice</a>
+    </div>
+    {{ form_end(form) }}
+</div>

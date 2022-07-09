@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Products index{% endblock %}
+{% block title %}Índice de productos{% endblock %}
 
 {% block body %}
-    <h1>Products index</h1>
+    <h1>Índice de productos</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Created_at</th>
+                <th>Nombre</th>
                 <th>Stock</th>
-                <th>Category_id</th>
-                <th>actions</th>
+                <th>Id de categoría</th>
+                <th>Fecha de creación</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -21,21 +21,21 @@
             <tr>
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
-                <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ product.stock }}</td>
                 <td>{{ product.categoryId }}</td>
+                <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_products_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('app_products_edit', {'id': product.id}) }}">edit</a>
+                    <a class = "btn btn-primary" href="{{ path('app_products_show', {'id': product.id}) }}">Ver</a>
+                    <a class = "btn btn-primary" href="{{ path('app_products_edit', {'id': product.id}) }}">Editar</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">No se encontraron productos</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_products_new') }}">Create new</a>
+    <a class = "btn btn-orange" href="{{ path('app_products_new') }}">Crear nuevo producto</a>
 {% endblock %}

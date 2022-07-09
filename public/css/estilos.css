@@ -18,3 +18,49 @@ img#logo {
     width: 200px;
     height: 222px;
 }
+
+.btn-purple {
+    color: #fff;
+    background-color: #8624c7;
+    border-color: #8624c7;
+}
+
+.btn-purple:hover {
+    color: #fff;
+    background-color: #5e198c;
+    border-color: #5e198c;
+}
+
+.btn-outline-purple {
+    color: #8624c7;
+    border-color: #8624c7;
+}
+
+.btn-outline-purple:hover {
+    color: #fff;
+    background-color: #8624c7;
+    border-color: #8624c7;
+}
+
+.btn-orange {
+    color: #292828;
+    background-color: #e39929;
+    border-color: #e39929;
+}
+
+.btn-orange:hover {
+    color: #fff;
+    background-color: #8f601a;
+    border-color: #8f601a;
+}
+
+.btn-outline-orange {
+    color: #8f601a;
+    border-color: #e39929;
+}
+
+.btn-outline-orange:hover {
+    color: #292828;
+    background-color: #e39929;
+    border-color: #e39929;
+}

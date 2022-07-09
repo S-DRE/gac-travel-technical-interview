@@ -30,9 +30,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_products_index') }}">back to list</a>
+    <a class = "btn btn-dark" href="{{ path('app_products_index') }}"><i class = "fa fa-arrow-left"></i> Volver al índice</a>
 
-    <a href="{{ path('app_products_edit', {'id': product.id}) }}">edit</a>
+    <a class = "btn btn-primary" href="{{ path('app_products_edit', {'id': product.id}) }}">Editar</a>
 
     {{ include('products/_delete_form.html.twig') }}
 {% endblock %}

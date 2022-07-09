@@ -18,16 +18,23 @@
         {% endblock %}
     </head>
     <body>
+        <div id = "navSup" class = "d-flex flex-row justify-content-between">
         {% if not app.user %}
             <div id = "loginDiv" class = "p-2 pr-4 d-flex flex-row justify-content-end">
                 <a class = "h4 btn btn-outline-primary" href = "{{ path('app_login') }}">Iniciar sesión</a>
             </div>
         {% else %}
+            <div id = "navSupTabs" class = "ml-2 mt-2 mb-3 d-flex flex-row justify-content-start">
+                <a class = "btn btn-outline-purple mr-2" href = "{{ path('app_user_index') }}">Usuarios</a>
+                <a class = "btn btn-outline-info mr-2" href = "{{ path('app_categories_index') }}">Categorías</a>
+                <a class = "btn btn-outline-orange" href = "{{ path('app_products_index') }}">Productos</a>
+            </div>
             <div id = "logoutDiv" class = "p-2 pr-4 d-flex flex-row justify-content-end">
                 <label id = "usernameLabel" class = "mt-2">Sesión iniciada como <label class = "text-primary">{{ app.user.userIdentifier }}</label></label>
                 <a class = "h4 btn btn-outline-primary ml-2" href = "{{ path('app_logout') }}">Cerrar sesión</a>
             </div>
         {% endif %}
+        </div>
         <div class="m-5">
             {% block body %}
             {% endblock %}

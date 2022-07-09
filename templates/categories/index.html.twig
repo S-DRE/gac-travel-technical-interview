@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Categories index{% endblock %}
+{% block title %}Índice de categorías{% endblock %}
 
 {% block body %}
-    <h1>Categories index</h1>
+    <h1>Índice de categorías</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Created_at</th>
-                <th>actions</th>
+                <th>Nombre</th>
+                <th>Fecha de creación</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -21,17 +21,17 @@
                 <td>{{ category.name }}</td>
                 <td>{{ category.createdAt ? category.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_categories_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('app_categories_edit', {'id': category.id}) }}">edit</a>
+                    <a class = "btn btn-primary" href="{{ path('app_categories_show', {'id': category.id}) }}">Ver</a>
+                    <a class = "btn btn-primary" href="{{ path('app_categories_edit', {'id': category.id}) }}">Editar</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">No se encontraron categorías</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_categories_new') }}">Create new</a>
+    <a class = "btn btn-info" href="{{ path('app_categories_new') }}">Crear nueva categoría</a>
 {% endblock %}
