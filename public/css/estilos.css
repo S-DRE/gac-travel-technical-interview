@@ -13,3 +13,8 @@ div#user > :last-child {
     display: flex;
     flex-direction: row !important;
 }
+
+img#logo {
+    width: 200px;
+    height: 222px;
+}

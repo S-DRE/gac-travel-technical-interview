@@ -27,7 +27,7 @@ Se evaluarán los siguientes aspectos técnicos:
 1. Realizar un fork del repositorio e inicializar la aplicación.
 2. Partiendo del siguiente esquema relacional, generar las entidades y migraciones pertinentes.
 
-![Drag Racing](./public/eer.png)
+![Drag Racing](public/img/eer.png)
 
 A continuación se describen las entidades y cada uno de sus campos:
 - `users`: Usuarios con acceso al sistema.

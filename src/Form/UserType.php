@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,7 +18,9 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username')
+            ->add('username', TextType::class, [
+                'label' => 'Nombre de usuario'
+            ])
             // ->add('active')
             /* ->add('created_at', DateTimeType::class, [
                 'widget' => 'single_text'
@@ -32,8 +35,12 @@ class UserType extends AbstractType
                     // 'User' => 'ROLE_USER'
                 ]
             ])
-            ->add('password', PasswordType::class)
-            ->add('isVerified', CheckboxType::class)
+            ->add('password', PasswordType::class, [
+                'label' => 'Contraseña'
+            ])
+            ->add('isVerified', CheckboxType::class, [
+                'label' => '¿Está verificado?'
+            ])
         ;
 
         $builder->get('roles')->addModelTransformer(new CallbackTransformer(

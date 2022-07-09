@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gac Travel Technical Interview - Home Page{% endblock %}
+
+{% block body %}
+    <div id="homeMasterContainer" class="h-100 w-100 d-flex flex-column justify-content-between" style="
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: url('{{ asset('img/v748-toon-111.jpg') }}')">
+        <div id="homeDiv" class="container text-center mt-5" >
+            <div class = "card shadow d-flex flex-column justify-content-between align-items-center p-5 mb-5" style = "height: 75vh">
+            <h1>Bienvenido a la prueva técnica de Gac Travel<br><br>Andrés Alonso Álvarez</h1>
+            <img id = "logo" src="{{ asset('img/minilogocdv.png') }}" alt="logoGacTravel">
+            <a class="btn btn-success mt-5" href="{{ path('app_user_index') }}">¡Comenzar!</a>
+            </div>
+        </div>
+        <div id="attributionDiv" class = "d-flex align-items-end">
+            <label class="bg-light shadow rounded pt-2 pb-2 pl-3 pr-3 text-dark ml-2">Background image from <a
+                        href="https://www.freepik.com/free-vector/white-gold-geometric-pattern-background-vector_18717112.htm#query=abstract%20background&position=2&from_view=keyword">FreePik
+                    author rawpixel.com</a></label>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+
+{% endblock %}
