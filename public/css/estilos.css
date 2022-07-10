@@ -91,3 +91,12 @@ img#logo {
     70%  {opacity: 100;}
     100% {opacity: 0;}
 }
+
+#navSup {
+    background-color: rgba(235,235,235);
+}
+
+#logoDiv img{
+    height: 3rem;
+    width: auto;
+}
