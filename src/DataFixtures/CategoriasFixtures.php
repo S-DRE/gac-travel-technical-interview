@@ -1,6 +1,6 @@
 <?php
 
-// src/DataFixtures/ProductFixtures.php
+// src/DataFixtures/ProductsFixtures.php
 namespace App\DataFixtures;
 
 use App\Entity\Categories;
@@ -14,7 +14,7 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class ProductFixtures extends Fixture
+class CategoriasFixtures extends Fixture
 {
     private HttpClientInterface $client;
 
@@ -22,38 +22,28 @@ class ProductFixtures extends Fixture
         $this->client = $client;
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ClientExceptionInterface
+     */
     public function load(ObjectManager $manager)
     {
-        for ($i = 1; $i <= 20; $i++) {
-            $product = new Products();
+        $categoriesData = $this->fetchApi();
 
-            $productData = $this->fetchApi($i);
+        foreach ($categoriesData as $clave => $categoryData) {
 
-            $existeProducto = $manager->getRepository(Products::class)->findOneBy(['name' => $productData->title]);
+            $existeCategoria = $manager->getRepository(Products::class)->findOneBy(['name' => $categoryData]);
 
-            if ($existeProducto === null) {
-
-                $product->setName($productData->title);
-                $product->setStock(mt_rand(10, 100));
-                $product->setCreatedAt(new DateTime());
-
-                $category = $manager->getRepository(Categories::class)->findOneBy(['name' => $productData->category]); // <-- Unique index
-
-                // dump($productData->category, $category);
-
-                if ($category === null) {
-                    $category = new Categories();
-                    $category->setName($productData->category);
-                    $category->setCreatedAt(new DateTime());
-                    $manager->persist($category);
-                    $manager->flush();
-                }
-
-                $product->setCategory($category);
-                $manager->persist($product);
-                dump("Producto nº " . $i . " añadido.");
+            if ($existeCategoria === null) {
+                $categoria = new Categories();
+                $categoria->setName($categoryData);
+                $categoria->setCreatedAt(new DateTime());
+                $manager->persist($categoria);
+                dump("Categoría nº " . $clave . " añadida.");
             } else {
-                dump("Producto nº " . $i . " ya existe, por lo que se omitirá.");
+                dump("Categoría nº " . $clave . " ya existe, por lo que se omitirá.");
             }
         }
 
@@ -67,7 +57,7 @@ class ProductFixtures extends Fixture
      * @throws RedirectionExceptionInterface
      * @throws ClientExceptionInterface
      */
-    public function fetchApi(int $iteration) {
+    public function fetchApi() {
         // cURL
 
         /*
@@ -81,7 +71,7 @@ class ProductFixtures extends Fixture
         // HTTP Client Library Request
         $response = $this->client->request(
             'GET',
-            'https://fakestoreapi.com/products/'. $iteration
+            'https://fakestoreapi.com/products/categories'
         )->getContent();
 
         return json_decode($response);
