@@ -21,7 +21,13 @@
             <tr class = "text-center">
                 <td class = "font-weight-bold bg-dark text-light">{{ stockHistoric.product.name }}</td>
                 <td>{{ stockHistoric.user.userIdentifier }}</td>
-                <td>{{ stockHistoric.stock }}</td>
+                <td>
+                    {% if stockHistoric.stock > 0 %}
+                        +{{ stockHistoric.stock }}
+                    {% else %}
+                        {{ stockHistoric.stock }}
+                    {% endif %}
+                </td>
                 <td>{{ stockHistoric.createdAt ? stockHistoric.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         {% else %}
