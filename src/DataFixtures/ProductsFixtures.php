@@ -44,8 +44,6 @@ class ProductsFixtures extends Fixture
 
                 $category = $manager->getRepository(Categories::class)->findOneBy(['name' => $productData->category]); // <-- Unique index
 
-                // dump($productData->category, $category);
-
                 if ($category === null) {
                     $category = new Categories();
                     $category->setName($productData->category);
@@ -72,18 +70,7 @@ class ProductsFixtures extends Fixture
      * @throws RedirectionExceptionInterface
      * @throws ClientExceptionInterface
      */
-    public function fetchApi()
-    {
-        // cURL
-
-        /*
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://fakestoreapi.com/products/'. $iteration);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
-        curl_close($ch);
-        */
-
+    public function fetchApi() {
         // HTTP Client Library Request
         $response = $this->client->request(
             'GET',

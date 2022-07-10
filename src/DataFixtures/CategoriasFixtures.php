@@ -58,16 +58,6 @@ class CategoriasFixtures extends Fixture
      * @throws ClientExceptionInterface
      */
     public function fetchApi() {
-        // cURL
-
-        /*
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://fakestoreapi.com/products/'. $iteration);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
-        curl_close($ch);
-        */
-
         // HTTP Client Library Request
         $response = $this->client->request(
             'GET',

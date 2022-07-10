@@ -6,8 +6,6 @@ use App\Entity\Categories;
 use App\Form\CategoriesType;
 use App\Repository\CategoriesRepository;
 use DateTime;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,10 +30,6 @@ class CategoriesController extends AbstractController
         ]);
     }
 
-    /**
-     * @throws OptimisticLockException
-     * @throws ORMException
-     */
     #[Route('/new', name: 'app_categories_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CategoriesRepository $categoriesRepository): Response
     {
