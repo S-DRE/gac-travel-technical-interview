@@ -8,9 +8,20 @@ use App\Entity\Products;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ProductFixtures extends Fixture
 {
+    private HttpClientInterface $client;
+
+    public function __construct(HttpClientInterface $client) {
+        $this->client = $client;
+    }
+
     public function load(ObjectManager $manager)
     {
         for ($i = 1; $i <= 20; $i++) {
@@ -49,13 +60,30 @@ class ProductFixtures extends Fixture
         $manager->flush();
     }
 
+
+    /**
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ClientExceptionInterface
+     */
     public function fetchApi(int $iteration) {
+        // cURL
+
+        /*
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://fakestoreapi.com/products/'. $iteration);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $res = curl_exec($ch);
         curl_close($ch);
+        */
 
-        return json_decode($res);
+        // HTTP Client Library Request
+        $response = $this->client->request(
+            'GET',
+            'https://fakestoreapi.com/products/'. $iteration
+        )->getContent();
+
+        return json_decode($response);
     }
 }
