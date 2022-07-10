@@ -23,10 +23,6 @@ class CategoriesRepository extends ServiceEntityRepository
         parent::__construct($registry, Categories::class);
     }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
     public function add(Categories $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
@@ -35,10 +31,6 @@ class CategoriesRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
     public function remove(Categories $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
