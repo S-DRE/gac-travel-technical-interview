@@ -84,6 +84,7 @@ class CategoriesController extends AbstractController
             $categoriesRepository->remove($category);
         }
 
+        $this->addFlash('success', 'Categoría eliminada correctamente');
         return $this->redirectToRoute('app_categories_index', [], Response::HTTP_SEE_OTHER);
     }
 }

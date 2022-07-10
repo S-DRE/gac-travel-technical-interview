@@ -114,6 +114,7 @@ class UserController extends AbstractController
             $userRepository->remove($user);
         }
 
+        $this->addFlash('success', 'Usuario eliminado correctamente');
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 

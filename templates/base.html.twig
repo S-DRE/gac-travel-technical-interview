@@ -48,6 +48,15 @@
         </div>
     </div>
     {% endif %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <label class = "flash-message btn btn-success m-3">{{ flashMessage }}</label>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('warning') %}
+        <label class = "flash-message btn btn-warning m-3">{{ flashMessage }}</label>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <label class = "flash-message btn btn-danger m-3">{{ flashMessage }}</label>
+    {% endfor %}
 <div class="m-5">
     {% block body %}
     {% endblock %}

@@ -77,3 +77,17 @@ img#logo {
     background-color: #e39929;
     border-color: #e39929;
 }
+
+.flash-message {
+    opacity: 0;
+    animation-name: animacionFlashes;
+    animation-duration: 6s;
+}
+
+/* The animation code */
+@keyframes animacionFlashes {
+    0%   {opacity: 0;}
+    30%  {opacity: 100;}
+    70%  {opacity: 100;}
+    100% {opacity: 0;}
+}

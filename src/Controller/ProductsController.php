@@ -97,6 +97,7 @@ class ProductsController extends AbstractController
             $productsRepository->remove($product);
         }
 
+        $this->addFlash('success', 'Producto eliminado correctamente');
         return $this->redirectToRoute('app_products_index', [], Response::HTTP_SEE_OTHER);
     }
 
